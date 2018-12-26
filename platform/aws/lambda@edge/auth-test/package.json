@@ -1,0 +1,17 @@
+{
+  "name": "auth-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@silvermine/serverless-plugin-cloudfront-lambda-edge": "2.1.1"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^8.4.0"
+  }
+}
