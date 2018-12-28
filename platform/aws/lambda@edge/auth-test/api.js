@@ -8,11 +8,11 @@ function generateToken() {
   const token = jwt.sign({
     resources: [
       {
-        "path": "/contents/1/004f2f0e-28fd-409f-b4c2-cadfce574566/fd401342/fd401342.png",
+        "exactly": "/contents/1/004f2f0e-28fd-409f-b4c2-cadfce574566/fd401342/fd401342.png",
         "expiresAt": expiresAt
       },
       {
-        "path": "/contents/123/2051363c-2348-4281-b079-984934b09da4/*",
+        "startsWith": "/contents/123/2051363c-2348-4281-b079-984934b09da4/",
         "expiresAt": expiresAt
       }
     ]
