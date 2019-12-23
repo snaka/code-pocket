@@ -6,3 +6,5 @@ services:
     tty: true
     volumes:
       - .:/go/src/app
+    ports:
+      - "6060:6060"

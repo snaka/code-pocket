@@ -12,3 +12,6 @@ RUN go get github.com/k0kubun/pp
 
 # x/tools
 RUN go get golang.org/x/tools/cmd/...
+
+# godoc
+EXPOSE 6060/tcp
