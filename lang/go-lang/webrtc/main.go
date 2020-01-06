@@ -21,26 +21,27 @@ func main() {
   if err != nil {
     log.Fatal(err)
   }
-  log.Println("peerConnection", peerConnection)
 
   peerConnection.OnICECandidate(func(c *webrtc.ICECandidate) {
-    log.Println("on icecandidate", c)
     if c == nil {
       os.Exit(0)
     }
+    switch c.Typ {
+    case webrtc.ICECandidateTypeHost:
+      log.Println("Local IP Address:", c.Address)
+    case webrtc.ICECandidateTypeSrflx:
+      log.Println("Public IP Address:", c.Address)
+    }
   })
 
-  dataChannel, err := peerConnection.CreateDataChannel("", nil)
-  if err != nil {
+  if _, err := peerConnection.CreateDataChannel("", nil); err != nil {
     log.Fatal(err)
   }
-  log.Println("dataChannel", dataChannel)
 
   offer, err := peerConnection.CreateOffer(nil)
   if err != nil {
     log.Fatal(err)
   }
-  log.Println("offer", offer)
 
   if err = peerConnection.SetLocalDescription(offer); err != nil {
     log.Fatal(err)
