@@ -2,6 +2,8 @@ package main
 
 import (
   "log"
+  "os"
+
   "github.com/pion/webrtc/v2"
 )
 
@@ -24,7 +26,7 @@ func main() {
   peerConnection.OnICECandidate(func(c *webrtc.ICECandidate) {
     log.Println("on icecandidate", c)
     if c == nil {
-      return
+      os.Exit(0)
     }
   })
 
