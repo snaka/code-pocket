@@ -1,10 +1,24 @@
-version: '3'
-services:
-  app:
-    container_name: app
+version: '3.4'
+
+x-services:
+  common: &common
     build: .
     tty: true
     volumes:
       - .:/go/src/app
+
+services:
+  app:
+    <<: *common
+    container_name: app
+    ports:
+      - "8080:8080"
+  go_doc:
+    <<: *common
+    container_name: go_doc
     ports:
       - "6060:6060"
+    command:
+      - godoc
+      - -http
+      - 0.0.0.0:6060
