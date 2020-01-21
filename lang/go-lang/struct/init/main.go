@@ -12,19 +12,21 @@ type Inner struct {
 }
 
 type Outer struct {
-  Dates []Inner
+  Dates []*Inner
 }
 
 func (o *Outer) init() {
-  for i, v := range o.Dates {
-    v.Date = time.Now()
-    v.Count = i * 10
+  for i := 0; i < len(o.Dates); i++ {
+    o.Dates[i] = &Inner{
+      Date: time.Now(),
+      Count: i * 10,
+    }
   }
 }
 
 func main() {
   outer := Outer{
-    Dates: make([]Inner, 3),
+    Dates: make([]*Inner, 3),
   }
   outer.init()
   pp.Print(outer)
