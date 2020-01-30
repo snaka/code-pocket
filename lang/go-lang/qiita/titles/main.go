@@ -9,8 +9,8 @@ import (
 )
 
 type Item struct {
-  Title string  `json:"title"`
-  CreatedAt string `json:"created_at"`
+	Title     string `json:"title"`
+	CreatedAt string `json:"created_at"`
 }
 
 func main() {
@@ -20,17 +20,17 @@ func main() {
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
-  if err != nil {
-    log.Fatal(err)
-  }
+	if err != nil {
+		log.Fatal(err)
+	}
 
-  data := make([]Item, 0)
+	data := make([]Item, 0)
 
-  if err := json.Unmarshal(body, &data); err != nil {
-    log.Fatal(err)
-  }
+	if err := json.Unmarshal(body, &data); err != nil {
+		log.Fatal(err)
+	}
 
-  for _, item := range data {
-    fmt.Printf("%s %s\n", item.Title, item.CreatedAt)
-  }
+	for _, item := range data {
+		fmt.Printf("%s %s\n", item.Title, item.CreatedAt)
+	}
 }
