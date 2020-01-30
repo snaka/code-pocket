@@ -25,7 +25,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	data := make([]Item, 0)
+	var data []Item
 
 	if err := json.Unmarshal(body, &data); err != nil {
 		log.Fatal(err)
