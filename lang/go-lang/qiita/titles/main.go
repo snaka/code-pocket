@@ -6,11 +6,12 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"time"
 )
 
 type Item struct {
-	Title     string `json:"title"`
-	CreatedAt string `json:"created_at"`
+	Title     string    `json:"title"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 func main() {
@@ -31,6 +32,6 @@ func main() {
 	}
 
 	for _, item := range data {
-		fmt.Printf("%s %s\n", item.Title, item.CreatedAt)
+		fmt.Printf("%s %s\n", item.CreatedAt, item.Title)
 	}
 }
