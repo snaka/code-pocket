@@ -4,7 +4,7 @@ ENV HOME /root
 
 CMD ["/sbin/my_init"]
 
-RUN apt-get update && apt-get install -y -o Dpkg::Options::="--force-con-fold" netcat
+RUN apt-get update && apt-get install -y -o Dpkg::Options::="--force-confold" netcat
 
 RUN rm -f /etc/service/nginx/down
 
