@@ -13,10 +13,12 @@ ADD webapp.conf /etc/nginx/sites-enabled/webapp.conf
 
 ADD rails-env.conf /etc/nginx/main.d/rails-env.conf
 
+WORKDIR /tmp
 ADD Gemfile /tmp/
 ADD Gemfile.lock /tmp/
 RUN bundle install
 
+RUN mkdir /home/app/webapp
 COPY . /home/app/webapp
 RUN usermod -u 1000 app
 RUN chown -R app:app /home/app/webapp
