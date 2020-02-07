@@ -3,7 +3,7 @@
     "containerDefinitions": [
         {
             "name": "webapp",
-            "image": "snaka/webapp:ecs-b01512d",
+            "image": "snaka/webapp:LAST_COMMIT",
             "cpu": 500,
             "memory": 500,
             "portMappings": [
