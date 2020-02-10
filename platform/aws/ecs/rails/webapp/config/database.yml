@@ -83,7 +83,7 @@ test:
 #
 production:
   <<: *default
-  host: sample-cluster.cluster-ceqt638iudcs.ap-northeast-1.rds.amazonaws.com
+  host: webapp-postgres-sls.cluster-ceqt638iudcs.ap-northeast-1.rds.amazonaws.com
   database: webapp_production
   username: webapp
   password: mysecretpassword
