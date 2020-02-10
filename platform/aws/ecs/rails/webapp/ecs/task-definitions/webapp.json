@@ -5,7 +5,7 @@
             "name": "webapp",
             "image": "snaka/webapp:LAST_COMMIT",
             "cpu": 500,
-            "memory": 500,
+            "memory": 300,
             "portMappings": [
                 {
                     "containerPort": 80,
