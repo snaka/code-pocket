@@ -19,7 +19,16 @@
                     "name": "PASSENGER_APP_ENV",
                     "value": "production"
                 }
-            ]
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-create-group": "True",
+                    "awslogs-group": "webapp",
+                    "awslogs-region": "ap-northeast-1",
+                    "awslogs-stream-prefix": "webapp-migrate"
+                }
+            }
         }
     ]
 }
