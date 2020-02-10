@@ -1,0 +1,16 @@
+{
+    "Rule": "hoge-rule",
+    "Targets": [
+        {
+            "Id": "hoge-target",
+            "Arn": "arn:aws:ecs:ap-northeast-1:105394972992:cluster/ecs-cluster",
+            "RoleArn": "arn:aws:iam::105394972992:role/ecsEventsRole",
+            "Input": "{\"containerOverrides\":[{\"name\":\"webapp\",\"command\":[\"bin/rails\",\"r\",\"Rails.logger.info('hoge')\"]}]}",
+            "EcsParameters": {
+                "TaskDefinitionArn": "arn:aws:ecs:ap-northeast-1:105394972992:task-definition/webapp:12",
+                "TaskCount": 1,
+                "LaunchType": "EC2"
+            }
+        }
+    ]
+}
