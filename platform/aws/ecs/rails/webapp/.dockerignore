@@ -7,3 +7,5 @@
 !/tmp/.keep
 
 .byebug_history
+*.pem
+.envrc
