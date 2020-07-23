@@ -6,7 +6,26 @@ const app = new App({
 });
 
 app.message('hello', async ({ message, say }) => {
-  await say(`Hey there <@${message.user}>!`);
+  await say({
+    blocks: [
+      {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": `何？ <@${message.user}>`
+        },
+        "accessory": {
+          "type": "button",
+          "text": {
+            "type": "plain_text",
+            "text": "ここをクリック"
+          },
+          "action_id": "button_click"
+        }
+      }
+    ],
+    text: `Hey there <@${message.user}>!`
+  });
 });
 
 (async () => {
