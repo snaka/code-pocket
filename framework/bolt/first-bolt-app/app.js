@@ -1,8 +1,10 @@
-const { App } = require('@slack/bolt');
+const { App, ExpressReceiver } = require('@slack/bolt');
+
+const receiver = new ExpressReceiver({ signingSecret: process.env.SLACK_SIGNING_SECRET });
 
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
-  signingSecret: process.env.SLACK_SIGNING_SECRET
+  receiver
 });
 
 const storage = {};
@@ -48,6 +50,15 @@ app.action('button_click', async ({ body, ack, say }) => {
 app.command('/echo', async ({ command, ack, say }) => {
   await ack();
   await say(`${command.text}`);
+});
+
+receiver.router.get('/ping', async (req, res) => {
+  await app.client.chat.postMessage({
+    token: process.env.SLACK_BOT_TOKEN,
+    channel: 'CV3509UNS', // the test channel on my workspace
+    text: 'pong'
+  });
+  res.send('ok!');
 });
 
 (async () => {
