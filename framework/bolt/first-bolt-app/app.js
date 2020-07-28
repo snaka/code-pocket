@@ -58,7 +58,21 @@ receiver.router.get('/ping', async (req, res) => {
     channel: 'CV3509UNS', // the test channel on my workspace
     text: 'pong'
   });
-  res.send('ok!');
+  res.sendStatus(200);
+});
+
+receiver.router.get('/ask', async (req, res) => {
+  const currentTime = Date.now();
+  for (const [user, lastPostedTime] of Object.entries(storage)) {
+    if ((currentTime - lastPostedTime) > 30000) {
+      await app.client.chat.postMessage({
+        token: process.env.SLACK_BOT_TOKEN,
+        channel: 'CV3509UNS', // the test channel on my workspace
+        text: `What's wrong? <@${user}>`
+      });
+    }
+  }
+  res.sendStatus(200);
 });
 
 (async () => {
