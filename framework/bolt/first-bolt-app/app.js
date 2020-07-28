@@ -5,6 +5,18 @@ const app = new App({
   signingSecret: process.env.SLACK_SIGNING_SECRET
 });
 
+const storage = {};
+
+app.message(/.*/, async ({ message, say }) => {
+  console.log(message);
+  const lastPostedTime = storage[message.user];
+  const currentTime = Date.now();
+  if (lastPostedTime) {
+    console.log('elapsed time since the last posted:', currentTime - lastPostedTime);
+  }
+  storage[message.user] = currentTime;
+});
+
 app.message('hello', async ({ message, say }) => {
   await say({
     blocks: [
