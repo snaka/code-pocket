@@ -1,0 +1,14 @@
+<div id="result">
+</div>
+
+<%= javascript_tag do %>
+  $(function() {
+    const eventSource = new EventSource("/stream");
+    eventSource.addEventListener("message", function(event) {
+      $("#result").text(event.data);
+    });
+    eventSource.addEventListener("done", function(event) {
+      $("#result").text(event.data);
+    });
+  })
+<% end %>
