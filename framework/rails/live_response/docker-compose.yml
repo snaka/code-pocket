@@ -1,0 +1,25 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: &dbpassword mydbpassword
+    volumes:
+      - mysql:/var/lib/mysql
+  web:
+    build: .
+    environment:
+      MYSQL_ROOT_PASSWORD: *dbpassword
+    volumes:
+      - .:/myapp
+      - bundle:/usr/local/bundle
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+volumes:
+  mysql:
+    driver: local
+  bundle:
+    driver: local
