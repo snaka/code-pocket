@@ -5,13 +5,20 @@ class IndexController < ApplicationController
   end
 
   def stream
-    response.headers['Content-Type'] = 'text/plain'
+    headers['Last-Modified'] = '0'
+    headers['ETag'] = '0'
+    headers['Content-Type'] = 'text/plain'
+    headers['X-Hoge'] = 10
 
+    response.stream.write('')
+
+    buffer = ""
     10.times do |i|
-      response.stream.write("hello #{i}\n")
-      sleep 0.2
+      buffer << "hello #{i}\n"
+      sleep 0.5
     end
-    response.stream.write("done\n")
+    buffer << "done\n"
+    response.stream.write(buffer)
     response.stream.close
   end
 end

@@ -16,6 +16,6 @@ module Myapp
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
-    config.middleware.delete Rack::ETag
+    # config.middleware.delete Rack::ETag
   end
 end
