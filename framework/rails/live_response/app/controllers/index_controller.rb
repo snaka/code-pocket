@@ -1,18 +1,17 @@
 class IndexController < ApplicationController
   include ActionController::Live
 
+  def index
+  end
+
   def stream
-    response.headers['Content-Type'] = 'text/event-stream'
+    response.headers['Content-Type'] = 'text/plain'
 
-    3.times do |i|
-      response.stream.write("event: message\n")
-      response.stream.write("data: Hello Hoge #{i}\n\n")
-      sleep 1
+    10.times do |i|
+      response.stream.write("hello #{i}\n")
+      sleep 0.2
     end
-
-    response.stream.write("event: done\n")
-    response.stream.write("data: done\n\n")
-  ensure
+    response.stream.write("done\n")
     response.stream.close
   end
 end
