@@ -17,6 +17,6 @@ provider "aws" {
 # タイプはプレフィクスとしてプロバイダが含まれる
 resource "aws_instance" "example" {
   # AMI ID はリージョン固有なので region を変更する際は変更する必要あり
-  ami           = "ami-830c94e3"
+  ami           = "ami-08d70e59c07c61a3a"
   instance_type = "t2.micro"
 }
