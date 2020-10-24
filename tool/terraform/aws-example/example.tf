@@ -1,13 +1,6 @@
 # どのプロバイダを利用するかを Terraform に知らせる
 #   registry: https://registry.terraform.io/
 terraform {
-  backend "remote" {
-    organization = "snaka"
-    workspaces {
-      name = "Example-Workspace"
-    }
-  }
-
   required_providers {
     aws = {
       source  = "hashicorp/aws"
