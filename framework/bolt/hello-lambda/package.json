@@ -13,6 +13,7 @@
     "@vendia/serverless-express": "^4.3.4"
   },
   "devDependencies": {
-    "serverless": "^2.30.3"
+    "serverless": "^2.30.3",
+    "serverless-offline": "^6.8.0"
   }
 }
