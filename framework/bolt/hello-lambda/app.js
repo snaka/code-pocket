@@ -39,6 +39,10 @@ app.action('button_click', async ({ body, ack, say }) => {
   await say(`<@${body.user.id}> clicked the button`);
 });
 
+app.message('goodbye', async ({ message, say }) => {
+  await say(`またねー :wave: <@${message.user}>`);
+});
+
 module.exports.handler = serverlessExpress({
   app: expressReceiver.app
 });
