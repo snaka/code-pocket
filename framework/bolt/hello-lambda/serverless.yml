@@ -1,8 +1,9 @@
-service: serverless-bolt-js
+service: serverless-bolt-js2
 frameworkVersion: '2'
 provider:
   name: aws
   runtime: nodejs12.x
+  region: ap-northeast-1
   environment:
     SLACK_SIGNING_SECRET: ${env:SLACK_SIGNING_SECRET}
     SLACK_BOT_TOKEN: ${env:SLACK_BOT_TOKEN}
@@ -16,5 +17,8 @@ functions:
       - http:
           path: slack/events
           method: post
+      - http:
+          path: himitsu
+          method: get
 plugins:
   - serverless-offline
