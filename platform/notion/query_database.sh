@@ -22,25 +22,27 @@ function list() {
 
 # 今日の当番を抜き出す
 function today() {
+  TODAY=$(date +%Y-%m-%d)
   curl -X POST "https://api.notion.com/v1/databases/$DATABASE_ID/query" \
     -H 'Authorization: Bearer '"$NOTION_API_KEY"'' \
     -H 'Notion-Version: 2021-05-13' \
     -H "Content-Type: application/json" \
-    --data '{
-      "filter": {
-        "property": "Date",
-        "date": {
-          "equals": "2021-05-25"
-        }
-      },
-      "sorts": [
-        {
-          "property": "Date",
-          "direction": "ascending"
-        }
-      ]
-    }' \
-    | jq '.results[].properties | { Date: .Date.date.start, Name: .Name.title[].plain_text}'
+    --data @- <<EOS | jq '.results[].properties | { Date: .Date.date.start, Name: .Name.title[].plain_text}'
+{
+  "filter": {
+    "property": "Date",
+    "date": {
+      "equals": "$TODAY"
+    }
+  },
+  "sorts": [
+    {
+      "property": "Date",
+      "direction": "ascending"
+    }
+  ]
+}
+EOS
 }
 
 case "$1" in
