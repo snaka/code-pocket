@@ -5,7 +5,7 @@ DATABASE_ID=2b6991f019f643feb5a2bc27a4f37d8e
 
 # リリース当番表から日付と担当を抜き出す
 function list() {
-  curl -X POST "https://api.notion.com/v1/databases/$DATABASE_ID/query" \
+  curl --silent -X POST "https://api.notion.com/v1/databases/$DATABASE_ID/query" \
     -H 'Authorization: Bearer '"$NOTION_API_KEY"'' \
     -H 'Notion-Version: 2021-05-13' \
     -H "Content-Type: application/json" \
@@ -23,7 +23,7 @@ function list() {
 # 今日の当番を抜き出す
 function today() {
   TODAY=$(date +%Y-%m-%d)
-  curl -X POST "https://api.notion.com/v1/databases/$DATABASE_ID/query" \
+  curl --silent -X POST "https://api.notion.com/v1/databases/$DATABASE_ID/query" \
     -H 'Authorization: Bearer '"$NOTION_API_KEY"'' \
     -H 'Notion-Version: 2021-05-13' \
     -H "Content-Type: application/json" \
