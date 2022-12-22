@@ -12,6 +12,6 @@
     "@silvermine/serverless-plugin-cloudfront-lambda-edge": "2.1.1"
   },
   "dependencies": {
-    "jsonwebtoken": "^8.4.0"
+    "jsonwebtoken": "^9.0.0"
   }
 }
