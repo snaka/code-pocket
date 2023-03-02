@@ -1,4 +1,5 @@
 const { GraphQLScalarType } = require('graphql')
+const process = require('process')
 
 let _id = 0
 const users = [
@@ -38,6 +39,38 @@ const tags = [
   { "photoID": "2", "userID": "gPlake" }
 ]
 
+const requestGithubToken = credentials => {
+  console.log('requestGithubToken')
+  return fetch(
+    'https://github.com/login/oauth/access_token',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(credentials)
+    }
+  )
+  .then(res => res.json())
+  .catch(error => {
+    throw new Error(JSON.stringify(error))
+  })
+}
+
+const requestGithubUserAccount = token => {
+  console.log('requestGithubUserAccount')
+  return fetch('http://api.github.com/user?access_token=${token')
+    .then(toJSON)
+    .catch(throwError)
+}
+
+async function authorizeWithGithub(credentials) {
+  const { access_token } = await requestGithubToken(credentials)
+  const githubUser = await requestGithubUserAccount(access_token)
+  return { ...githubUser, access_token }
+}
+
 exports = {
   Query: {
     totalPhotos: (parent, args, { db }) =>
@@ -68,6 +101,40 @@ exports = {
       }
       photos.push(newPhoto)
       return newPhoto
+    },
+    async githubAuth(parent, { code }, { db, console }) {
+      console.log( 'githubAuth' )
+      let {
+        message,
+        access_token,
+        avatar_url,
+        login,
+        name
+      } = await authorizeWithGithub({
+        client_id: process.env.GITHUB_CLIENT_ID,
+        client_secret: process.env.GITHUB_CLIENT_SECRET,
+        code
+      })
+      console.log('client_id:', client_id)
+      console.log('client_secret:', client_secret)
+
+      if (message) {
+        throw new Error(message)
+      }
+
+      let latestUserInfo = {
+        name,
+        githubLogin: login,
+        githubToken: access_token,
+        avatar: avatar_url
+      }
+
+      const {ops:[user] } = await db
+        .collection('users')
+        .replaceOne({ githubLogin: login }, latestUserInfo, { upsert: true })
+
+      // return { user, token: access_token }
+      return { user: 'hoge', token: 'fuga' }
     }
   },
   Photo: {

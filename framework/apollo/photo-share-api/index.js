@@ -18,13 +18,13 @@ async function start() {
   )
   const db = client.db()
 
-  const context = { db }
+  const context = { db, console }
 
   const server = new ApolloServer({ typeDefs, resolvers, context })
 
   server.applyMiddleware({ app })
   app.get('/', (req, res) => res.end('Welcome to the PhotoShare API'))
-  app.get('/playground', expressPlayground({ endpoint: '/graphql'}))
+  app.get('/playground', expressPlayground({ endpoint: '/graphql' }))
 
   app.listen({ port: 4000 }, () =>
     console.log(`GraphQL Server running @ http://localhost:4000${server.graphqlPath}`)
