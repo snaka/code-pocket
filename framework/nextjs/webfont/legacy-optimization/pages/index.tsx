@@ -2,10 +2,19 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const router = useRouter()
+  const hello =
+    router.locale === 'ja' ? 'こんにちは「次の」世界'
+    : router.locale === 'zh-CN' ? '你好，"下一个"世界'
+    : router.locale === 'zh-TW' ? '你好，"下一個"世界'
+    : router.locale === 'ko' ? '안녕 "다음" 세계'
+    : 'Hello World'
   return (
     <>
       <Head>
@@ -50,8 +59,16 @@ export default function Home() {
           />
         </div>
 
-        <p style={{ fontFamily: 'Noto Sans JP' }}>こんにちは世界</p>
+        <p style={{ fontFamily: 'Noto Sans JP' }}>{hello}</p>
 
+        <div>
+          <ul className="horizontal-list">
+            <li><a href="/ja">ja</a></li>
+            <li><a href="/zh-CN">zh-CN</a></li>
+            <li><a href="/zh-TW">zh-TW</a></li>
+            <li><a href="/ko">ko</a></li>
+          </ul>
+        </div>
         <div className={styles.grid}>
           <a
             href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
