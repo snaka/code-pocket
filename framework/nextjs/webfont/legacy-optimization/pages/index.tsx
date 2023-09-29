@@ -7,14 +7,25 @@ import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
 
+type locales = 'en' | 'ja' | 'zh-CN' | 'zh-TW' | 'ko'
+const messages: { [key in locales]: string } = {
+  'en': 'Hello "Next" World',
+  'ja': 'こんにちは「次の」世界',
+  'zh-CN': '你好，"下一个"世界',
+  'zh-TW': '你好，"下一個"世界',
+  'ko': '안녕 "다음" 세계',
+}
+const fontFamilies: { [key in locales]: string } = {
+  'en': 'Inter',
+  'ja': 'Noto Sans JP',
+  'zh-CN': 'Noto Sans SC',
+  'zh-TW': 'Noto Sans TC',
+  'ko': 'Noto Sans KR',
+}
+
 export default function Home() {
   const router = useRouter()
-  const hello =
-    router.locale === 'ja' ? 'こんにちは「次の」世界'
-    : router.locale === 'zh-CN' ? '你好，"下一个"世界'
-    : router.locale === 'zh-TW' ? '你好，"下一個"世界'
-    : router.locale === 'ko' ? '안녕 "다음" 세계'
-    : 'Hello World'
+  const currentLocale: locales = router.locale as locales ?? 'en'
   return (
     <>
       <Head>
@@ -59,7 +70,7 @@ export default function Home() {
           />
         </div>
 
-        <p style={{ fontFamily: 'Noto Sans JP' }}>{hello}</p>
+        <p style={{ fontFamily: fontFamilies[currentLocale] }}>{messages[currentLocale]}</p>
 
         <div>
           <ul className="horizontal-list">
